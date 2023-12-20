@@ -27,7 +27,26 @@ def challenge1(input):
 
 def challenge2(input):
     total = 0
-    
+    card_list = [0] * len(input)
+    for index, line in enumerate(input):
+        card = line.split(":")[1].split("|")
+
+        first_list = list(filter(lambda x: x.isnumeric(), card[0].split(" ")))
+        second_list = list(filter(lambda x: x.isnumeric(), card[1].split(" ")))
+
+        card_list[index] += 1
+
+        num_of_hits = 0
+        
+        for num in first_list:
+            if num in second_list:
+                num_of_hits += 1
+        
+        for i in list(range(index + 1, (index + num_of_hits + 1) if (index + num_of_hits + 1) <= len(input) else len(input))):
+            card_list[i] += card_list[index]
+        
+    for item in card_list:
+        total += item
     return total
 
 
